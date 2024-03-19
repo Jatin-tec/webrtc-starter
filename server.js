@@ -1,17 +1,20 @@
-
-const fs = require('fs');
-const https = require('https')
 const express = require('express');
+const http = require('http');
+
 const app = express();
 const socketio = require('socket.io');
 app.use(express.static(__dirname))
 
+const port = process.env.PORT || 4000
 //we changed our express setup so we can use https
-//pass the key and cert to createServer on https
-const expressServer = https.createServer(app);
+//pass the key and cert to createServer on https\
 //create our socket.io server... it will listen to our express port
-const io = socketio(expressServer);
-expressServer.listen(3001);
+
+const server = http.createServer(app);
+
+const io = socketio(server);
+
+app.listen(port, () => console.log(`server running on port ${port}`));
 
 //offers will contain {}
 const offers = [
