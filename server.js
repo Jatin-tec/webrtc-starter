@@ -17,16 +17,8 @@ const cert = fs.readFileSync('cert.crt');
 //pass the key and cert to createServer on https
 const expressServer = https.createServer({key, cert}, app);
 //create our socket.io server... it will listen to our express port
-const io = socketio(expressServer,{
-    cors: {
-        origin: [
-            "https://localhost",
-            // 'https://LOCAL-DEV-IP-HERE' //if using a phone or another computer
-        ],
-        methods: ["GET", "POST"]
-    }
-});
-expressServer.listen(8181);
+const io = socketio(expressServer);
+expressServer.listen(3001);
 
 //offers will contain {}
 const offers = [
